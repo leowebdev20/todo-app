@@ -1,1 +1,6 @@
-{{visibleTodos$ | async | json}}
+<section class="main" [ngClass]="{ hidden: false }">
+  <ul class="todo-list">
+    <app-todos-todo *ngFor="let todo of visibleTodos$ | async" [todo]="todo">
+    </app-todos-todo>
+  </ul>
+</section>
