@@ -1,3 +1,4 @@
+import { FooterComponent } from './components/footer/footer.component';
 import { MainComponent } from './components/main/main.component';
 import { TodosService } from './services/todos.service';
 import { Routes, RouterModule } from '@angular/router';
@@ -15,7 +16,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [TodosComponent, HeaderComponent, MainComponent, TodoComponent],
+  declarations: [TodosComponent, HeaderComponent, MainComponent, TodoComponent, FooterComponent],
   imports: [CommonModule, RouterModule.forChild(routes)],
   providers: [TodosService],
 })

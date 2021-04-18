@@ -12,8 +12,19 @@ import { map } from "rxjs/operators";
 
 export class MainComponent {
   visibleTodos$: Observable<TodoInterface[]>;
+  noTodoClass$: Observable<boolean>;
+  isAllTodosSelected$: Observable<boolean>;
+  editingId: string | null = null;
 
   constructor(private todosService: TodosService) {
+    this.isAllTodosSelected$ = this.todosService.todos$.pipe(
+      map((todos) => todos.every((todo) => todo.isCompleted))
+    );
+
+    this.noTodoClass$ = this.todosService.todos$.pipe(
+      map((todos) => todos.length === 0)
+    );
+
     this.visibleTodos$ = combineLatest(
       this.todosService.todos$,
       this.todosService.filter$
@@ -28,4 +39,14 @@ export class MainComponent {
       })
     )
   }
+
+  toggleAllTodos(event: Event) {
+    const target = event.target as HTMLInputElement
+    this.todosService.toggleAll(target.checked);
+  }
+
+  setEditingId(editingId: string | null): void {
+    this.editingId = editingId;
+  }
+
 };
